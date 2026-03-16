@@ -1,10 +1,10 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "Webcam Spoofer",
     "version": "1.0",
     "description": "Spoof webcam",
     "permissions": ["activeTab", "storage"],
-    "browser_action": {
+    "action": {
         "default_popup": "popup/popup.html"
     },
     "content_scripts": [
@@ -15,9 +15,16 @@
         }
     ],
     "background": {
-        "page": "background/page.html",
-        "persistent": true,
-        "content_security_policy": "script-src 'self' https://unpkg.com/@supabase/supabase-js@2; object-src 'self'"
+        "service_worker": "background/background.js",
+        "type": "module"
     },
-    "web_accessible_resources": [ "injected/*" ]
+    "web_accessible_resources": [
+        {
+            "resources": ["injected/*"],
+            "matches": ["<all_urls>"]
+        }
+    ],
+    "content_security_policy": {
+        "extension_pages": "script-src 'self' https://unpkg.com/@supabase/supabase-js@2; object-src 'self'"
+    }
 }
