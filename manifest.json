@@ -25,6 +25,6 @@
         }
     ],
     "content_security_policy": {
-        "extension_pages": "script-src 'self' https://unpkg.com/@supabase/supabase-js@2; object-src 'self'"
+        "extension_pages": "script-src 'self'; object-src 'self'"
     }
 }
