@@ -8,7 +8,7 @@ let trySetDeviceLabels = () => {
         if(deviceLabels.length === 0) setTimeout(trySetDeviceLabels, 1000);
     })
     .catch(err => {
-        spLogger.error(2, err);
+        if(__VERBOSE >= 2) console.error(err);
         setTimeout(trySetDeviceLabels, 1000);
     });
 }
@@ -25,9 +25,11 @@ Object.defineProperty(HTMLMediaElement.prototype, 'srcObject', {
 
         const tracks = stream.getTracks();
 
-        spLogger.log(2, tracks.some(t => deviceLabels.includes(t.label)));
-        spLogger.log(2, tracks);
-        spLogger.log(2, tracks.map(t => t.label));
+        if(__VERBOSE >= 2) {
+            console.log(tracks.some(t => deviceLabels.includes(t.label)));
+            console.log(tracks);
+            console.log(tracks.map(t => t.label));
+        }
 
         if(tracks.some(t => deviceLabels.includes(t.label))) {
             // This element is a spoofing target
